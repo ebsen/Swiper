@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby -wKU
 require "open-uri"
 
-puts "Swiper, no sw--"
+puts "Swiper, no sw--!"
+puts "..."
 
 # open('image.png', 'wb') do |file|
 #   file << open('http://igrow.org/up/authors/Dunn.Barry-iGrow.jpg').read

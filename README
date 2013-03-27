@@ -1,0 +1,3 @@
+A simple Ruby script to swipe images from the web and either store them into a filesystem or insert them (as blobs) into an existing SQLite database.
+
+Dora will never find them!

@@ -1,5 +1,7 @@
-# Swiper, no swiping! 
-# Swiper, no swiping! 
-# Swiper, no swiping!
+#!/usr/bin/env ruby -wKU
 
-# Aww, man!
+puts "Swiper, no swiping!"
+puts "Swiper, no swiping!"
+puts "Swiper, no swiping!"
+puts "\n"
+puts "Aww, man!"

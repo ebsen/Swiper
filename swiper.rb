@@ -1,10 +1,7 @@
 #!/usr/bin/env ruby -wKU
 require "open-uri"
 
-puts "Swiper, no swiping!"
-puts "Swiper, no swiping!"
-puts "Swiper, no swiping!"
-puts "..."
+puts "Swiper, no sw--"
 
 # open('image.png', 'wb') do |file|
 #   file << open('http://igrow.org/up/authors/Dunn.Barry-iGrow.jpg').read
@@ -25,4 +22,4 @@ images.each do |url|
   end
 end
 
-puts "Aww, man!"
+puts "You'll never find your images now!"

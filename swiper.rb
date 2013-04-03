@@ -2,43 +2,36 @@
 require "open-uri"
 require "sqlite3"
 
-# puts "Swiper, no swiping!"
-# puts "..."
+# Introduction
+puts "\"Oh no! Swiper wants to steal our photos!\""
 
-# Set up local variables.
-image_urls = []
-db = SQLite3::Database.open( "directory_data.db" )
-
-puts "Oh no, Boots! Swiper wants to steal our images from the following URLs!"
-# Get the image URLs from the database.
+# Set up some handy local variables.
+db                 = SQLite3::Database.open( "directory_data.db" )
 db.results_as_hash = true
-db.execute( "SELECT photo FROM People" ) do |row|
-  image_urls << row['photo'] unless row['photo'].nil?
-end
-image_urls.each {|url| p url }
+file_extension     = "jpg"
 
-# Try to swipe the images and stash them into this script's directory.
-image_urls.each do |url|
-
-  # Break down the url into first name, last name, and file extension.
-  name = url.split( "/" )
-  file_name = name.last.inspect.gsub!(/"/, "").gsub!(/-iGrow/, "")
-  last, first, file_extension = file_name.split( "." )
-
-  # Get the ID number from the database that matches this person.
-  person_id = db.get_first_value( "SELECT _id FROM People WHERE last_name = ? AND first_name_pref = ?", [last, first] )
+# Scan each row of the database for images to swipe.
+db.execute( "SELECT _id, first_name_pref, photo FROM People" ) do |row|
+  unless row['photo'].nil?
+    print "(Swiping %s's photo..." % row['first_name_pref']
+    
+    # Swipe the URL of the image.
+    url = row['photo']
   
-  # Build the image's file name.
-  file_name = person_id.to_s << "." << file_extension
+    # Build the image's file name.
+    file_name = row['_id'].to_s << "." << file_extension
 
-  # Create/open a file by that name and write the image from the url to it.
-  open( file_name, 'wb' ) do |file|
-    file << open(url).read  
+    # Create/open a file by that name and write the image from the URL to it.
+    open( file_name, 'wb' ) do |file|
+      file << open(url).read  
+    end
+    print "swiped.)\n"
   end
     
 end
 
-# When we're done, close the database object.
+# When we're done, make sure we close the database object.
 db.close unless db.closed?
 
+# Relish in our success.
 puts "You're too late! You'll never find your images now!"

@@ -18,7 +18,7 @@ db.execute( "SELECT _id, first_name_pref, photo FROM People" ) do |row|
     # Swipe the URL of the image.
     url = row['photo']
   
-    # Build the image's file name.
+    # Build a file name to use for the image.
     file_name = row['_id'].to_s << "." << file_extension
 
     # Create/open a file by that name and write the image from the URL to it.

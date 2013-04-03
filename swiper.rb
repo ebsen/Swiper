@@ -18,7 +18,7 @@ db = SQLite3::Database.open( "directory_data.db" )
 # Get the images and save them into this script's directory.
 image_urls.each do |url|
 
-  name = url.split "/"
+  name = url.split( "/" )
   file_name = name.last.inspect.gsub!(/"/, "").gsub!(/-iGrow/, "")
 
   last, first, file_extension = file_name.split( "." )

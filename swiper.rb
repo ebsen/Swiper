@@ -25,7 +25,7 @@ image_urls.each do |url|
   last, first, file_extension = file_name.split( "." )
 
   # Get the ID number from the database that matches this person.
-  person_id = db.get_first_value( "SELECT _id, last_name, first_name_pref FROM People WHERE last_name = ? AND first_name_pref = ?", [last, first] )
+  person_id = db.get_first_value( "SELECT _id FROM People WHERE last_name = ? AND first_name_pref = ?", [last, first] )
   
   # Build the image's file name.
   file_name = person_id.to_s << "." << file_extension

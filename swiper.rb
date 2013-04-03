@@ -5,16 +5,18 @@ require "sqlite3"
 puts "Swiper, no swiping!"
 puts "..."
 
-images = [
-  'http://igrow.org/up/authors/Dunn.Barry-iGrow.jpg',
-  'http://igrow.org/up/authors/Burke.Shawn-iGrow.jpg',
-  'http://igrow.org/up/authors/Edwards.Laura-iGrow.jpg',
-  'http://igrow.org/up/authors/Salverson.Robin-iGrow.jpg'
-]
+image_urls = []
+
+image_file = File.new( ARGV.first, "r" )
+image_file.each_line do |line|
+  puts "URL: #{line}"
+  image_urls << line.delete( "\n" ) 
+end
+
 db = SQLite3::Database.open( "directory_data.db" )
 
 # Get the images and save them into this script's directory.
-images.each do |url|
+image_urls.each do |url|
 
   name = url.split "/"
   file_name = name.last.inspect.gsub!(/"/, "").gsub!(/-iGrow/, "")

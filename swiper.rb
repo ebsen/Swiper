@@ -25,9 +25,10 @@ db.execute( "SELECT _id, first_name_pref, photo FROM People" ) do |row|
     open( file_name, 'wb' ) do |file|
       file << open(url).read  
     end
-    print "swiped.)\n"
-  end
     
+    print "swiped.)\n"
+  
+  end  
 end
 
 # When we're done, make sure we close the database object.

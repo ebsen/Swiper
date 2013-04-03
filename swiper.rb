@@ -7,14 +7,15 @@ require "sqlite3"
 
 # Set up local variables.
 image_urls = []
-image_file = File.new( ARGV.first, "r" )
 db = SQLite3::Database.open( "directory_data.db" )
 
 puts "Oh no, Boots! Swiper wants to steal our images from the following URLs!"
-image_file.each_line do |line|
-  puts "URL: #{line}"
-  image_urls << line.delete( "\n" ) 
+# Get the image URLs from the database.
+db.results_as_hash = true
+db.execute( "SELECT photo FROM People" ) do |row|
+  image_urls << row['photo'] unless row['photo'].nil?
 end
+image_urls.each {|url| p url }
 
 # Try to swipe the images and stash them into this script's directory.
 image_urls.each do |url|

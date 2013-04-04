@@ -1,4 +1,5 @@
 directory_data.db
-images.txt
 *.jpg
+DragImagesHereForProcessing.app/
+Processed images/
 .DS_Store

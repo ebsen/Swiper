@@ -47,7 +47,7 @@ db.close unless db.closed?
 
 # Relish in our success.
 puts; puts "You're too late! You'll never find your images now!"
-
+ 
 # ...and note our failures.
 puts; puts "These folks haven't an image yet:"
 peeps_without_images.each do |peep|

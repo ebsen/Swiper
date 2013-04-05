@@ -17,7 +17,7 @@ db.execute( "SELECT _id, last_name, first_name_pref, photo FROM People" ) do |ro
   print "Swiping %s's photo..." % name
     
   # Swipe the URL of the image.
-  if row['photo'].nil?
+  if row['photo'].nil? or row['photo'].eql? ""
     url = "http://igrow.org/up/authors/LAST.FIRST-iGrow.jpg".gsub!( /LAST/, row['last_name'] ).gsub!( /FIRST/, row['first_name_pref'] )
   else
     url = row['photo']
@@ -37,6 +37,9 @@ db.execute( "SELECT _id, last_name, first_name_pref, photo FROM People" ) do |ro
   open( file_name, 'wb' ) do |file|
     file << open(url).read  
   end
+  
+  # Update the row in the database with the filename to use in the app.
+  db.execute( "UPDATE People SET photo = '#{row['_id'].to_s + ".png"}' WHERE _id = #{row['_id']}" )
   
   print "swiped.\n"
 

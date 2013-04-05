@@ -3,12 +3,13 @@ require "open-uri"
 require "sqlite3"
 
 # Introduction
-puts "\n\t\"Oh no! Swiper wants to steal our photos!\""; puts
+puts "\n\"Oh no! Swiper wants to steal our photos!\""; puts
 
 # Set up some handy local variables.
 db                 = SQLite3::Database.open( "sample_data.db" )
 db.results_as_hash = true
 file_extension     = "jpg"
+peeps_without_images = []
 
 # Scan each row of the database for images to swipe.
 db.execute( "SELECT _id, last_name, first_name_pref, photo FROM People" ) do |row|
@@ -23,8 +24,9 @@ db.execute( "SELECT _id, last_name, first_name_pref, photo FROM People" ) do |ro
   end
   
   begin open(url)
-  rescue => e 
+  rescue
     puts; puts "--Failed to swipe #{url}" 
+    peeps_without_images << name
     next
   end
  
@@ -45,3 +47,9 @@ db.close unless db.closed?
 
 # Relish in our success.
 puts; puts "You're too late! You'll never find your images now!"
+
+# ...and note our failures.
+puts; puts "These folks haven't an image yet:"
+peeps_without_images.each do |peep|
+  puts peep
+end

@@ -11,17 +11,20 @@ db.results_as_hash = true
 file_extension     = "jpg"
 
 # Scan each row of the database for images to swipe.
-db.execute( "SELECT _id, last_name, first_name_pref FROM People" ) do |row|
+db.execute( "SELECT _id, last_name, first_name_pref, photo FROM People" ) do |row|
   name = "#{row['first_name_pref']} #{row['last_name']}"
   print "Swiping %s's photo..." % name
-  
+    
   # Swipe the URL of the image.
-  url = "http://igrow.org/up/authors/LAST.FIRST-iGrow.jpg".gsub!( /LAST/, row['last_name'] ).gsub!( /FIRST/, row['first_name_pref'] )
+  if row['photo'].nil?
+    url = "http://igrow.org/up/authors/LAST.FIRST-iGrow.jpg".gsub!( /LAST/, row['last_name'] ).gsub!( /FIRST/, row['first_name_pref'] )
+  else
+    url = row['photo']
+  end
   
-  begin 
-    open(url)
-  rescue => e
-    puts; puts "\t\"Swiper, no swiping!\""
+  begin open(url)
+  rescue => e 
+    puts; puts "--Failed to swipe #{url}" 
     next
   end
  
@@ -41,4 +44,4 @@ end
 db.close unless db.closed?
 
 # Relish in our success.
-puts "You're too late! You'll never find your images now!"
+puts; puts "You're too late! You'll never find your images now!"

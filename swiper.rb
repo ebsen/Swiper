@@ -6,9 +6,9 @@ require "sqlite3"
 puts "\n\"Oh no! Swiper wants to steal our photos!\""; puts
 
 # Set up some handy local variables.
-db                 = SQLite3::Database.open( "sample_data.db" )
-db.results_as_hash = true
-file_extension     = "jpg"
+db                   = SQLite3::Database.open( "sample_data.db" )
+db.results_as_hash   = true
+file_extension       = "jpg"
 peeps_without_images = []
 
 # Scan each row of the database for images to swipe.

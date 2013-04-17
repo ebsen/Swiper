@@ -6,13 +6,13 @@ require "sqlite3"
 puts "\"Oh no! Swiper wants to steal our photos!\""
 
 # Set up some handy local variables.
-db                 = SQLite3::Database.open( "directory_data.db" )
+db                 = SQLite3::Database.open( "extension_data.db" )
 db.results_as_hash = true
 file_extension     = "jpg"
 
 # Scan each row of the database for images to swipe.
 db.execute( "SELECT _id, first_name_pref, photo FROM People" ) do |row|
-  unless row['photo'].nil?
+  unless row['photo'].nil? or row['photo'].eql? ""
     print "(Swiping %s's photo..." % row['first_name_pref']
     
     # Swipe the URL of the image.
@@ -20,14 +20,24 @@ db.execute( "SELECT _id, first_name_pref, photo FROM People" ) do |row|
   
     # Build a file name to use for the image.
     file_name = row['_id'].to_s << "." << file_extension
+    
+    # Check if our URL is valid.
+    begin open( url )
+    rescue
+      puts "--Failed to swipe #{url}"
+      next
+    end
 
     # Create/open a file by that name and write the image from the URL to it.
     open( file_name, 'wb' ) do |file|
       file << open(url).read  
     end
     
+    # Update the row in the database with the filename to use in the app.
+    db.execute( "UPDATE People SET photo = '#{row['_id'].to_s + ".png"}' WHERE _id = #{row['_id']}" )
+    
     print "swiped.)\n"
-  
+    
   end  
 end
 

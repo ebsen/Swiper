@@ -1,5 +1,6 @@
-directory_data.db
+*.db
 *.jpg
+*.txt
 DragImagesHereForProcessing.app/
 Processed images/
 .DS_Store

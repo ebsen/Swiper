@@ -6,7 +6,7 @@ require "sqlite3"
 puts "\"Oh no! Swiper wants to steal our photos!\""
 
 # Set up some handy local variables.
-db                 = SQLite3::Database.open( "extension_data.db" )
+db                 = SQLite3::Database.open( "extension_data 3.db" )
 db.results_as_hash = true
 file_extension     = "jpg"
 
@@ -21,7 +21,7 @@ db.execute( "SELECT _id, first_name_pref, photo FROM People" ) do |row|
     # Build a file name to use for the image.
     file_name = row['_id'].to_s << "." << file_extension
     
-    # Check if our URL is valid.
+    # Check if our URL is valid, acknowledge the failure if it occurs, and move on.
     begin open( url )
     rescue
       puts "--Failed to swipe #{url}"

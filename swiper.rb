@@ -24,7 +24,7 @@ db.execute( "SELECT _id, first_name_pref, photo FROM People" ) do |row|
     # Check if our URL is valid, acknowledge the failure if it occurs, and move on.
     begin open( url )
     rescue
-      puts "--Failed to swipe #{url}"
+      puts "--Oh, man! (Failed to swipe #{url}.)"
       next
     end
 

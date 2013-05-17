@@ -6,7 +6,7 @@ require "sqlite3"
 puts "\"Oh no! Swiper wants to steal our photos!\""
 
 # Set up some handy local variables.
-db                 = SQLite3::Database.open( "extension_data 3.db" )
+db                 = SQLite3::Database.open( "extension_data_2013-04-18.db" ) # Change this name as necessary.
 db.results_as_hash = true
 file_extension     = "jpg"
 

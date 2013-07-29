@@ -2,5 +2,6 @@
 *.jpg
 *.txt
 DragImagesHereForProcessing.app/
+images/
 Processed images/
 .DS_Store
